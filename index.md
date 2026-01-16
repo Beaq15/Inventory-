@@ -819,6 +819,10 @@ if (ecs.Registry.valid(m_equippedItem))
 }
 ```
 
+<video width="320" height="240" controls>
+  <source src="buttons.mp4" type="video/mp4">
+</video>
+
 ## Wrapping Up
 
 That's the complete inventory system - from spawning items in the world to managing stacks, dragging between slots, and using/dropping/equipping them. 
