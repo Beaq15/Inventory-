@@ -832,3 +832,7 @@ Building this taught me a lot about UI systems, coordinate conversions, state ma
 If you're building your own inventory system from scratch, I hope this breakdown saves you some of the debugging headaches I ran into. The code examples here should give you a solid foundation, whether you're working with a custom engine like I am or adapting these concepts to Unity, Unreal, or another framework.
 
 Thanks for reading, and happy coding!
+
+<video width="320" height="240" controls>
+  <source src="finalproduct.mp4" type="video/mp4">
+</video>
