@@ -2,7 +2,7 @@
 layout: default
 ---
 
-![alt text](Assets/main.png)
+![alt text](main.png)
 
 ## Introduction
 
@@ -265,7 +265,7 @@ This positioning system creates 40 invisible "slots" that perfectly overlay the 
 
 **Pro tip:** Use debug rendering to visualize the slot boundaries while tweaking these values. I originally had debug lines drawing rectangles around each slot, which made alignment much easier.
 
-![alt text](Assets/debuglines.png)
+![alt text](debuglines.png)
 
 ## Creating Items in the World
 
@@ -390,7 +390,7 @@ else
 3. **Overflow handling** - Return false if inventory is full
 
 <video width="320" height="240" controls>
-  <source src="Assets/additems.mp4" type="video/mp4">
+  <source src="additems.mp4" type="video/mp4">
 </video>
 
 ## Item Creation Tool
@@ -437,7 +437,7 @@ if (ImGui::Button("Create Item"))
 	CreateItems(maxItems, itemNames, itemDescriptions, selectedType, spriteX, spriteY, stackable, maxStack);
 }
 ```
-![alt text](Assets/imgui.png)
+![alt text](imgui.png)
 
 ## Displaying Item Quantities with Individual Digit Sprites
 
@@ -447,7 +447,7 @@ One of the visual details I'm proud of is how item quantities are displayed. Ins
 
 The system displays any quantity by converting the number to a string, then processing each character individually. For example, the number 42 becomes the string "42", which contains two characters: '4' and '2'. The code loops through each character, converts it back to its numeric value (using the technique digitChar - '0', which turns '4' into 4 and '2' into 2), and loads the corresponding digit image file (digit-4.png and digit-2.png). Each digit is created as a separate visual entity and positioned side-by-side with small spacing between them in the bottom-right corner of the inventory slot. This way, any number—whether it's 9, 42, or 999—can be displayed by combining individual digit sprites (0-9) positioned next to each other.
 
-![alt text](Assets/digitshowcase.png)
+![alt text](digitshowcase.png)
 
 ```cpp
 // Convert the quantity to a string of digits
@@ -582,7 +582,7 @@ void platformer::Platformer::UpdatePopupText(const std::string& itemName, const 
 ```
 
 <video width="320" height="240" controls>
-  <source src="Assets/hovering.mp4" type="video/mp4">
+  <source src="hovering.mp4" type="video/mp4">
 </video>
 
 ## Drag and Drop System
@@ -590,7 +590,7 @@ void platformer::Platformer::UpdatePopupText(const std::string& itemName, const 
 For the drag and drop system, I implemented a state machine that tracks whether the user is dragging, which mouse button was pressed, and how many items to move. When the user presses the left mouse button on a slot, the system prepares to drag all items from that slot. If the right mouse button is pressed instead, it calculates half the quantity (using `(totalQuantity + 1) / 2` to round up for odd numbers) and only drags that amount. The dragging doesn't start immediately—there's a distance threshold to distinguish between clicks and drags. Once the mouse moves beyond this threshold, a semi-transparent "ghost" entity is created that follows the mouse cursor, visually representing the items being dragged. When the mouse button is released, the system checks which slot the mouse is hovering over and either stacks the items if they match and have space, or places them in an empty slot. If the player tries to drag onto a slot containing a different item type, the items automatically return to the source slot and no changes occur. After implementing drag and drop, the hover detection logic needed modification because the system was now tracking multiple interaction states (potential drag, active drag, and locked popup). I added a `m_wasClick` flag to distinguish between actual clicks (for locking the popup) and drag operations, and modified the hover detection to not interfere when the popup is locked or when actively dragging, ensuring that hover effects only apply during appropriate interaction states.
 
 <video width="320" height="240" controls>
-  <source src="Assets/draganddrop.mp4" type="video/mp4">
+  <source src="draganddrop.mp4" type="video/mp4">
 </video>
 
 ```cpp
@@ -690,7 +690,7 @@ if (m_wasClick && !m_isDragging)
 For item serialization, I implemented a JSON-based save and load system that stores both item definitions and their spawn positions in the world, similar to the `track_editor` example. Due to a compilation conflict between Windows headers (included through OpenGL) and C++17's `std::byte` type used in the serialization library, I had to split the serialization code into a separate file (`item_serialization.cpp`) with its own helper header (`item_serialization_helpers.hpp`) that uses forward declarations instead of full includes. This separation prevents the `byte` symbol ambiguity while maintaining functionality. The serialization process collects all item definitions from the item database (including properties like name, description, sprite coordinates, stackability, and max stack size) and all current item spawn positions from entities in the world, packaging them into a `LevelItemData` structure that gets serialized to JSON format. When loading, the system first populates the item database with all definitions, creates their corresponding mesh renderers, and then spawns items at their saved positions in the world, allowing designers to save and reload entire item layouts for level design.
 
 <video width="320" height="240" controls>
-  <source src="Assets/saveandload.mp4" type="video/mp4">
+  <source src="saveandload.mp4" type="video/mp4">
 </video>
 
 
